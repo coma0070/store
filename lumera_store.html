@@ -1,0 +1,465 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="theme-color" content="#0f0e12" />
+  <title>LUMÉRA | الجمال بأسلوبك</title>
+  <style>
+    :root{
+      --bg:#0c0b0f;
+      --bg-soft:#131116;
+      --surface:#17141b;
+      --surface-2:#1f1a23;
+      --card:#f5f0ea;
+      --ink:#151218;
+      --muted:#8e8791;
+      --line:rgba(255,255,255,.09);
+      --gold:#d5b06c;
+      --gold-2:#f1d39b;
+      --cream:#f4efe8;
+      --rose:#b9848f;
+      --danger:#d66f6f;
+      --shadow:0 28px 80px rgba(0,0,0,.34);
+      --radius-xl:32px;
+      --radius-lg:24px;
+      --radius-md:18px;
+      --radius-sm:14px;
+      --container:1200px;
+    }
+    *{box-sizing:border-box}
+    html{scroll-behavior:smooth}
+    body{
+      margin:0;
+      font-family:"Segoe UI", Tahoma, Arial, sans-serif;
+      background:
+        radial-gradient(circle at 85% -10%, rgba(181,128,143,.18), transparent 28%),
+        radial-gradient(circle at 10% 18%, rgba(213,176,108,.10), transparent 24%),
+        var(--bg);
+      color:var(--cream);
+      line-height:1.65;
+      overflow-x:hidden;
+    }
+    button,input{font:inherit}
+    button{cursor:pointer}
+    a{text-decoration:none;color:inherit}
+    img{max-width:100%;display:block}
+    .container{width:min(calc(100% - 32px),var(--container));margin-inline:auto}
+    .eyebrow{display:inline-flex;align-items:center;gap:10px;color:var(--gold-2);font-size:.82rem;letter-spacing:.05em;text-transform:uppercase}
+    .eyebrow::before{content:"";width:32px;height:1px;background:linear-gradient(90deg,transparent,var(--gold))}
+    .section{padding:88px 0}
+    .section-title{display:flex;align-items:end;justify-content:space-between;gap:24px;margin-bottom:30px}
+    .section-title h2{margin:8px 0 0;font-size:clamp(2rem,4vw,3.4rem);line-height:1.05;letter-spacing:-.03em}
+    .section-title p{color:#b7afb9;max-width:530px;margin:0}
+    .topbar{
+      height:34px;display:flex;align-items:center;justify-content:center;text-align:center;
+      background:linear-gradient(90deg,#a27652,#d9ba80,#9d6b52);color:#1c1512;font-weight:700;font-size:.8rem;
+      position:relative;z-index:50;
+    }
+    .topbar span{opacity:.8;margin-inline:8px}
+    .nav-wrap{position:sticky;top:0;z-index:45;background:rgba(12,11,15,.78);backdrop-filter:blur(18px);border-bottom:1px solid var(--line)}
+    .nav{height:78px;display:grid;grid-template-columns:auto 1fr auto;align-items:center;gap:28px}
+    .brand{font-weight:900;font-size:1.45rem;letter-spacing:.18em;white-space:nowrap}
+    .brand small{display:block;font-size:.55rem;letter-spacing:.08em;color:var(--gold);font-weight:600;margin-top:-4px}
+    .nav-links{display:flex;align-items:center;justify-content:center;gap:8px}
+    .nav-links a{color:#c9c1cb;padding:10px 13px;border-radius:999px;font-size:.92rem;transition:.25s}
+    .nav-links a:hover{color:#fff;background:rgba(255,255,255,.06)}
+    .nav-actions{display:flex;align-items:center;gap:8px}
+    .icon-btn{
+      width:42px;height:42px;border-radius:50%;border:1px solid var(--line);background:rgba(255,255,255,.04);color:#fff;
+      display:grid;place-items:center;transition:.25s;position:relative
+    }
+    .icon-btn:hover{transform:translateY(-2px);border-color:rgba(213,176,108,.45);background:rgba(213,176,108,.08)}
+    .cart-count{position:absolute;top:-4px;right:-4px;background:var(--gold);color:#181217;width:20px;height:20px;border-radius:50%;font-size:.7rem;font-weight:900;display:grid;place-items:center;border:2px solid var(--bg)}
+    .menu-btn{display:none}
+
+    .hero{padding:38px 0 70px;position:relative}
+    .hero-grid{display:grid;grid-template-columns:1.05fr .95fr;gap:30px;align-items:stretch}
+    .hero-copy{
+      min-height:620px;border:1px solid var(--line);border-radius:var(--radius-xl);padding:62px 54px;display:flex;flex-direction:column;justify-content:center;
+      background:linear-gradient(145deg,rgba(255,255,255,.055),rgba(255,255,255,.015));position:relative;overflow:hidden
+    }
+    .hero-copy::after{content:"L";position:absolute;left:-20px;bottom:-120px;font-family:Georgia,serif;font-size:31rem;line-height:1;color:rgba(255,255,255,.025);pointer-events:none}
+    .hero h1{font-size:clamp(3.2rem,7vw,6.9rem);line-height:.92;margin:18px 0 22px;letter-spacing:-.065em;max-width:760px}
+    .hero h1 em{font-family:Georgia,serif;font-weight:400;color:var(--gold-2)}
+    .hero-copy p{font-size:1.05rem;color:#bcb4be;max-width:650px;margin:0 0 32px}
+    .hero-cta{display:flex;gap:12px;flex-wrap:wrap}
+    .btn{border:0;border-radius:999px;padding:14px 22px;font-weight:800;display:inline-flex;align-items:center;justify-content:center;gap:10px;transition:.25s}
+    .btn-primary{background:linear-gradient(135deg,var(--gold-2),#b78a4d);color:#18120e;box-shadow:0 12px 30px rgba(213,176,108,.18)}
+    .btn-primary:hover{transform:translateY(-2px);box-shadow:0 16px 38px rgba(213,176,108,.26)}
+    .btn-ghost{background:rgba(255,255,255,.045);color:#fff;border:1px solid var(--line)}
+    .btn-ghost:hover{background:rgba(255,255,255,.08)}
+    .hero-stats{display:flex;gap:28px;margin-top:50px;flex-wrap:wrap}
+    .stat strong{font-size:1.55rem;display:block}.stat span{color:#918a93;font-size:.83rem}
+
+    .hero-visual{display:grid;grid-template-rows:1.4fr .8fr;gap:18px;min-height:620px}
+    .visual-main,.visual-small{border-radius:var(--radius-xl);overflow:hidden;position:relative;border:1px solid rgba(255,255,255,.06);box-shadow:var(--shadow)}
+    .visual-main{background:linear-gradient(150deg,#c69b8d 0%,#7e5d61 40%,#27212c 100%);min-height:390px}
+    .visual-main .orb{position:absolute;border-radius:50%;filter:blur(1px)}
+    .orb.one{width:380px;height:380px;background:radial-gradient(circle at 35% 28%,#f5d2c4 0 8%,#bd827c 28%,#6b444d 60%,#231b24 100%);right:-80px;top:40px;box-shadow:inset -40px -20px 80px rgba(0,0,0,.22)}
+    .orb.two{width:210px;height:210px;background:linear-gradient(145deg,#e8c993,#98713c);left:38px;bottom:-30px;filter:blur(.2px)}
+    .bottle{position:absolute;left:17%;top:18%;width:155px;height:280px;background:linear-gradient(90deg,rgba(255,255,255,.16),rgba(255,255,255,.72),rgba(255,255,255,.22));border:1px solid rgba(255,255,255,.48);border-radius:30px 30px 22px 22px;box-shadow:0 40px 60px rgba(0,0,0,.26);backdrop-filter:blur(8px)}
+    .bottle::before{content:"LUMÉRA";position:absolute;top:48%;left:50%;transform:translate(-50%,-50%) rotate(-90deg);letter-spacing:.25em;font-size:.75rem;color:#57413f;font-weight:900}
+    .bottle::after{content:"";position:absolute;width:70px;height:48px;left:50%;transform:translateX(-50%);top:-37px;background:linear-gradient(#d7c1a0,#866742);border-radius:10px 10px 4px 4px}
+    .visual-badge{position:absolute;right:24px;top:24px;background:rgba(12,11,15,.72);backdrop-filter:blur(14px);border:1px solid rgba(255,255,255,.1);padding:12px 15px;border-radius:16px;font-weight:800}
+    .visual-main .caption{position:absolute;right:26px;bottom:26px;max-width:260px}
+    .caption strong{font-size:1.45rem;display:block}.caption span{color:#e8dfe8;font-size:.86rem}
+    .visual-row{display:grid;grid-template-columns:1fr 1fr;gap:18px}
+    .visual-small:first-child{background:linear-gradient(145deg,#d9b997,#7b5e55)}
+    .visual-small:last-child{background:linear-gradient(145deg,#26202a,#8d6d79)}
+    .mini-product{position:absolute;inset:0;display:grid;place-items:center}
+    .lipstick{width:60px;height:160px;background:linear-gradient(90deg,#2a2229,#6f5c67,#1c171d);border-radius:12px 12px 8px 8px;position:relative;transform:rotate(9deg);box-shadow:0 28px 50px rgba(0,0,0,.32)}
+    .lipstick::after{content:"";position:absolute;width:46px;height:74px;left:7px;top:-62px;background:linear-gradient(90deg,#9e394b,#e46f84,#8f3141);border-radius:50% 50% 8px 8px}
+    .bag{width:150px;height:125px;border:12px solid #d8bd8b;border-radius:30px 30px 20px 20px;position:relative;box-shadow:0 30px 55px rgba(0,0,0,.28)}
+    .bag::before{content:"";position:absolute;left:35px;right:35px;top:-58px;height:65px;border:9px solid #d8bd8b;border-bottom:0;border-radius:45px 45px 0 0}
+
+    .marquee{border-block:1px solid var(--line);overflow:hidden;background:rgba(255,255,255,.02)}
+    .marquee-track{display:flex;gap:48px;white-space:nowrap;padding:18px 0;width:max-content;animation:marquee 24s linear infinite;color:#a8a0aa;font-size:.82rem;letter-spacing:.08em}
+    .marquee-track b{color:var(--gold-2)}
+    @keyframes marquee{to{transform:translateX(50%)}}
+
+    .categories{display:grid;grid-template-columns:repeat(4,1fr);gap:16px}
+    .category-card{height:260px;border-radius:var(--radius-lg);position:relative;overflow:hidden;border:1px solid var(--line);padding:22px;display:flex;align-items:end;transition:.35s;isolation:isolate}
+    .category-card::before{content:"";position:absolute;inset:0;z-index:-2;transition:.4s}
+    .category-card::after{content:"";position:absolute;inset:0;background:linear-gradient(180deg,transparent 20%,rgba(6,5,8,.88) 100%);z-index:-1}
+    .category-card:hover{transform:translateY(-7px);border-color:rgba(213,176,108,.28)}
+    .category-card:hover::before{transform:scale(1.05)}
+    .category-card:nth-child(1)::before{background:radial-gradient(circle at 25% 28%,#e2a4a9 0 18%,transparent 19%),linear-gradient(145deg,#7d4850,#1b161c)}
+    .category-card:nth-child(2)::before{background:radial-gradient(circle at 70% 30%,#e5c795 0 14%,transparent 15%),linear-gradient(145deg,#665541,#1a1719)}
+    .category-card:nth-child(3)::before{background:radial-gradient(ellipse at 40% 35%,#8d6f78 0 26%,transparent 27%),linear-gradient(145deg,#332b35,#151316)}
+    .category-card:nth-child(4)::before{background:radial-gradient(circle at 62% 30%,#d5b06c 0 8%,transparent 9%),linear-gradient(145deg,#6a5b4a,#201a1d)}
+    .category-card h3{margin:0;font-size:1.35rem}.category-card span{color:#bdb4be;font-size:.83rem}.cat-arrow{margin-right:auto;width:38px;height:38px;border-radius:50%;border:1px solid var(--line);display:grid;place-items:center;background:rgba(255,255,255,.06)}
+    .cat-inner{width:100%;display:flex;align-items:center;gap:12px}
+
+    .products-toolbar{display:flex;gap:10px;justify-content:space-between;align-items:center;flex-wrap:wrap;margin-bottom:24px}
+    .filters{display:flex;gap:8px;flex-wrap:wrap}
+    .filter-btn{border:1px solid var(--line);background:transparent;color:#bbb3bd;padding:10px 15px;border-radius:999px;transition:.2s}
+    .filter-btn.active,.filter-btn:hover{background:var(--cream);color:var(--ink);border-color:var(--cream)}
+    .searchbox{display:flex;align-items:center;gap:10px;background:rgba(255,255,255,.04);border:1px solid var(--line);border-radius:999px;padding:0 16px;min-width:270px}
+    .searchbox input{background:transparent;border:0;outline:0;color:#fff;width:100%;padding:12px 0}
+    .products-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:18px}
+    .product-card{background:var(--card);color:var(--ink);border-radius:26px;padding:10px;overflow:hidden;transition:.3s;position:relative}
+    .product-card:hover{transform:translateY(-6px);box-shadow:0 24px 50px rgba(0,0,0,.25)}
+    .product-media{height:270px;border-radius:20px;position:relative;overflow:hidden;background:#d8cdc2;display:grid;place-items:center}
+    .product-media::after{content:"";position:absolute;inset:0;background:linear-gradient(180deg,transparent 55%,rgba(0,0,0,.12))}
+    .product-badge{position:absolute;top:14px;right:14px;z-index:3;background:#181419;color:#fff;padding:7px 10px;border-radius:999px;font-size:.7rem;font-weight:800}
+    .wish{position:absolute;top:13px;left:13px;z-index:3;width:36px;height:36px;border-radius:50%;border:0;background:rgba(255,255,255,.85);display:grid;place-items:center;color:#322b31}
+    .wish.active{background:#201a20;color:#f2b4c2}
+    .shape{position:relative;z-index:1;filter:drop-shadow(0 20px 24px rgba(0,0,0,.2));transition:.35s}
+    .product-card:hover .shape{transform:translateY(-4px) scale(1.03)}
+    .shape.perfume{width:110px;height:160px;border:2px solid rgba(255,255,255,.7);background:linear-gradient(90deg,rgba(255,255,255,.2),rgba(255,255,255,.65),rgba(255,255,255,.18));border-radius:26px}
+    .shape.perfume::before{content:"LUMÉRA";position:absolute;top:58%;left:50%;transform:translate(-50%,-50%);font-size:.63rem;letter-spacing:.14em;font-weight:900}
+    .shape.perfume::after{content:"";position:absolute;width:55px;height:34px;top:-26px;left:50%;transform:translateX(-50%);background:#b59667;border-radius:8px 8px 2px 2px}
+    .shape.lip{width:52px;height:128px;background:linear-gradient(90deg,#191519,#4d4148,#171317);border-radius:8px;transform:rotate(8deg)}
+    .shape.lip::after{content:"";position:absolute;left:6px;top:-58px;width:40px;height:70px;background:linear-gradient(90deg,#9c3448,#ea778d,#8a2b3d);border-radius:50% 50% 7px 7px}
+    .shape.jar{width:150px;height:90px;background:linear-gradient(180deg,#f8f5ee,#b6aba3);border-radius:22px;border:1px solid #fff}
+    .shape.jar::before{content:"LUMÉRA / SKIN";position:absolute;inset:0;display:grid;place-items:center;font-size:.68rem;letter-spacing:.1em;font-weight:900}
+    .shape.jar::after{content:"";position:absolute;left:-6px;right:-6px;top:-27px;height:34px;background:linear-gradient(#d6cdbf,#a99f92);border-radius:17px 17px 6px 6px}
+    .shape.bagshape{width:145px;height:115px;background:linear-gradient(145deg,#b79665,#6f5135);border-radius:28px 28px 18px 18px}
+    .shape.bagshape::before{content:"";position:absolute;width:72px;height:54px;left:36px;top:-41px;border:9px solid #92714d;border-bottom:0;border-radius:40px 40px 0 0}
+    .shape.dress{width:135px;height:185px;background:linear-gradient(145deg,#393039,#171317);clip-path:polygon(34% 0,66% 0,74% 20%,95% 100%,5% 100%,26% 20%);border-radius:16px}
+    .shape.palette{width:150px;height:150px;background:#2d2830;border-radius:28px;box-shadow:inset 0 0 0 10px #4a414a;display:grid;place-items:center}
+    .shape.palette::before{content:"✦";font-size:4rem;color:#d9b778}
+    .shape.shoe{width:165px;height:72px;background:linear-gradient(145deg,#f1ede6,#b9aaa0);border-radius:75px 28px 24px 35px;transform:rotate(-7deg)}
+    .shape.shoe::after{content:"";position:absolute;width:55px;height:55px;left:25px;bottom:-34px;background:#b5a298;border-radius:0 0 22px 22px}
+    .shape.serum{width:72px;height:150px;background:linear-gradient(90deg,#d7c394,#f2dfaa,#b89d69);border-radius:18px}
+    .shape.serum::before{content:"SÉRUM";position:absolute;inset:0;display:grid;place-items:center;font-size:.7rem;letter-spacing:.1em;font-weight:900;transform:rotate(-90deg)}
+    .shape.serum::after{content:"";position:absolute;width:34px;height:46px;top:-39px;left:19px;background:#28222a;border-radius:8px 8px 2px 2px}
+    .m1{background:linear-gradient(145deg,#a67871,#e1c4ad)}.m2{background:linear-gradient(145deg,#c5b7a6,#8f706b)}.m3{background:linear-gradient(145deg,#d8d0c3,#9f948d)}.m4{background:linear-gradient(145deg,#b39673,#6c5049)}
+    .m5{background:linear-gradient(145deg,#9d828c,#473842)}.m6{background:linear-gradient(145deg,#d0b58c,#86745d)}.m7{background:linear-gradient(145deg,#dbcec4,#9b8579)}.m8{background:linear-gradient(145deg,#b1a28a,#675d54)}
+    .product-info{padding:14px 8px 8px}.product-topline{display:flex;align-items:flex-start;justify-content:space-between;gap:10px}
+    .product-info h3{margin:0;font-size:1rem}.product-info .cat{font-size:.75rem;color:#77707a;margin-top:3px}
+    .rating{font-size:.78rem;color:#7a6644;white-space:nowrap}.price{display:flex;align-items:center;gap:8px;margin-top:14px}.price strong{font-size:1.05rem}.price s{color:#928994;font-size:.78rem}
+    .add-btn{margin-top:12px;width:100%;border:0;border-radius:14px;padding:11px;background:#181419;color:#fff;font-weight:800;transition:.2s}.add-btn:hover{background:#2a222a}
+
+    .banner{border-radius:34px;min-height:360px;padding:50px;display:flex;align-items:center;position:relative;overflow:hidden;background:linear-gradient(110deg,#e1c09c 0%,#9b6d66 50%,#1f1822 100%);color:#1b1415}
+    .banner::after{content:"";position:absolute;width:420px;height:420px;border-radius:50%;background:radial-gradient(circle,#f0d4bd 0 10%,#b87779 36%,#48303a 72%);left:-70px;top:-80px;box-shadow:0 30px 60px rgba(0,0,0,.18)}
+    .banner-copy{position:relative;z-index:2;max-width:620px}.banner h2{font-size:clamp(2.4rem,5vw,4.8rem);line-height:.95;margin:8px 0 16px;letter-spacing:-.05em}.banner p{max-width:520px;color:#473638}
+    .banner .btn{margin-top:10px;background:#171218;color:#fff}
+
+    .features{display:grid;grid-template-columns:repeat(4,1fr);gap:14px}
+    .feature{border:1px solid var(--line);background:rgba(255,255,255,.025);border-radius:22px;padding:24px}.feature-icon{width:46px;height:46px;border-radius:15px;background:rgba(213,176,108,.1);color:var(--gold-2);display:grid;place-items:center;font-size:1.25rem;margin-bottom:18px}.feature h3{margin:0 0 6px;font-size:1rem}.feature p{margin:0;color:#958e98;font-size:.84rem}
+
+    .testimonials{display:grid;grid-template-columns:repeat(3,1fr);gap:18px}.testimonial{background:linear-gradient(145deg,rgba(255,255,255,.05),rgba(255,255,255,.015));border:1px solid var(--line);border-radius:24px;padding:26px}.stars{color:var(--gold-2);letter-spacing:.15em}.testimonial p{color:#c1bac3}.customer{display:flex;align-items:center;gap:12px;margin-top:20px}.avatar{width:44px;height:44px;border-radius:50%;background:linear-gradient(145deg,#d5b06c,#7a5d66);display:grid;place-items:center;font-weight:900}.customer small{color:#8f8791}
+
+    .newsletter{margin-top:70px;border:1px solid var(--line);border-radius:34px;padding:44px;background:linear-gradient(145deg,rgba(213,176,108,.08),rgba(255,255,255,.02));display:grid;grid-template-columns:1fr auto;gap:30px;align-items:center}.newsletter h3{font-size:2rem;margin:0 0 8px}.newsletter p{margin:0;color:#a49ca6}.subscribe{display:flex;gap:8px;background:rgba(255,255,255,.05);border:1px solid var(--line);border-radius:999px;padding:6px;min-width:430px}.subscribe input{flex:1;background:transparent;border:0;outline:0;color:#fff;padding:0 14px}.subscribe button{border:0;border-radius:999px;background:var(--cream);color:#181419;padding:12px 18px;font-weight:900}
+
+    footer{border-top:1px solid var(--line);padding:58px 0 28px;background:#09080b}.footer-grid{display:grid;grid-template-columns:1.4fr repeat(3,1fr);gap:32px}.footer-brand p{color:#958d97;max-width:370px}.socials{display:flex;gap:8px;margin-top:18px}.socials a{width:38px;height:38px;border-radius:50%;border:1px solid var(--line);display:grid;place-items:center;color:#c9c1cb}.footer-col h4{margin:0 0 14px}.footer-col a{display:block;color:#9d959f;margin:8px 0;font-size:.9rem}.footer-bottom{display:flex;align-items:center;justify-content:space-between;gap:18px;border-top:1px solid var(--line);margin-top:40px;padding-top:24px;color:#77717a;font-size:.8rem;flex-wrap:wrap}
+
+    .drawer-overlay{position:fixed;inset:0;background:rgba(0,0,0,.55);backdrop-filter:blur(3px);z-index:90;opacity:0;pointer-events:none;transition:.3s}.drawer-overlay.show{opacity:1;pointer-events:auto}
+    .cart-drawer{position:fixed;top:0;left:0;width:min(440px,100%);height:100dvh;background:#f5f0ea;color:#181419;z-index:100;transform:translateX(-100%);transition:.35s cubic-bezier(.2,.75,.2,1);display:flex;flex-direction:column;box-shadow:30px 0 80px rgba(0,0,0,.35)}.cart-drawer.show{transform:none}
+    .drawer-head{padding:22px;border-bottom:1px solid #ded7cf;display:flex;justify-content:space-between;align-items:center}.drawer-head h3{margin:0;font-size:1.25rem}.close-btn{width:38px;height:38px;border-radius:50%;border:1px solid #d6cec7;background:#fff}
+    .cart-items{padding:16px 22px;flex:1;overflow:auto}.empty-cart{min-height:60%;display:grid;place-items:center;text-align:center;color:#7b727c}.empty-cart .emoji{font-size:3rem;display:block;margin-bottom:10px}
+    .cart-item{display:grid;grid-template-columns:70px 1fr auto;gap:12px;align-items:center;padding:12px 0;border-bottom:1px solid #ddd5ce}.cart-thumb{width:70px;height:70px;border-radius:14px;background:linear-gradient(145deg,#d9c0aa,#887069);display:grid;place-items:center;font-weight:900;color:#fff}.cart-meta strong{display:block}.cart-meta span{font-size:.8rem;color:#7b727c}.remove{border:0;background:transparent;font-size:1.1rem;color:#8e8087}
+    .drawer-foot{padding:20px 22px;border-top:1px solid #ded7cf}.total{display:flex;justify-content:space-between;font-weight:900;font-size:1.1rem;margin-bottom:14px}.checkout{width:100%;border:0;border-radius:16px;padding:14px;background:#181419;color:#fff;font-weight:900}
+
+    .modal{position:fixed;inset:0;z-index:110;display:grid;place-items:center;padding:20px;opacity:0;pointer-events:none;transition:.25s}.modal.show{opacity:1;pointer-events:auto}.modal-card{width:min(620px,100%);background:#f5f0ea;color:#181419;border-radius:28px;padding:26px;box-shadow:var(--shadow);transform:translateY(20px) scale(.98);transition:.3s}.modal.show .modal-card{transform:none}.modal-grid{display:grid;grid-template-columns:180px 1fr;gap:22px}.modal-art{height:220px;border-radius:20px;background:linear-gradient(145deg,#cba99d,#6d555c);display:grid;place-items:center;font-size:4rem}.modal-card h3{font-size:1.7rem;margin:8px 0}.modal-card p{color:#766d77}.modal-actions{display:flex;gap:8px;margin-top:18px}.modal-actions .btn-primary{flex:1}.modal-actions .btn-ghost{border-color:#d2cac3;color:#181419;background:#fff}
+    .toast{position:fixed;right:22px;bottom:22px;background:#f3ede5;color:#1b161b;padding:13px 17px;border-radius:15px;box-shadow:0 16px 40px rgba(0,0,0,.28);z-index:140;transform:translateY(100px);opacity:0;transition:.3s;font-weight:800}.toast.show{transform:none;opacity:1}
+    .mobile-panel{display:none}
+
+    @media(max-width:1000px){
+      .nav-links{display:none}.menu-btn{display:grid}.hero-grid{grid-template-columns:1fr}.hero-copy{min-height:auto}.hero-visual{min-height:520px}.categories,.products-grid{grid-template-columns:repeat(2,1fr)}.features{grid-template-columns:repeat(2,1fr)}.testimonials{grid-template-columns:1fr}.newsletter{grid-template-columns:1fr}.subscribe{min-width:0;width:100%}.footer-grid{grid-template-columns:1.4fr 1fr 1fr}.footer-grid .footer-col:last-child{grid-column:2/4}.mobile-panel{display:block;position:fixed;top:112px;right:16px;left:16px;z-index:80;background:#17141b;border:1px solid var(--line);border-radius:22px;padding:12px;transform:translateY(-20px);opacity:0;pointer-events:none;transition:.25s;box-shadow:var(--shadow)}.mobile-panel.show{transform:none;opacity:1;pointer-events:auto}.mobile-panel a{display:block;padding:12px 14px;border-radius:12px;color:#cbc4cc}.mobile-panel a:hover{background:rgba(255,255,255,.06)}
+    }
+    @media(max-width:680px){
+      .topbar{font-size:.68rem}.nav{height:70px;gap:10px}.brand{font-size:1.12rem}.nav-actions .icon-btn:first-child{display:none}.hero{padding-top:20px}.hero-copy{padding:38px 24px;border-radius:24px}.hero h1{font-size:3.45rem}.hero-stats{gap:18px;margin-top:34px}.hero-visual{grid-template-rows:1.15fr .85fr;min-height:490px}.visual-main,.visual-small{border-radius:24px}.bottle{left:12%;width:120px;height:220px}.orb.one{width:290px;height:290px}.visual-main .caption{right:18px;bottom:18px}.section{padding:64px 0}.section-title{display:block}.section-title p{margin-top:14px}.categories,.products-grid{grid-template-columns:1fr 1fr;gap:12px}.category-card{height:205px;padding:16px}.category-card h3{font-size:1.05rem}.product-media{height:210px}.product-info{padding:12px 4px 6px}.product-info h3{font-size:.92rem}.product-info .cat{font-size:.7rem}.product-badge{top:10px;right:10px}.wish{top:9px;left:9px}.filters{display:grid;grid-template-columns:repeat(3,1fr);width:100%}.filter-btn{padding:9px 8px;font-size:.77rem}.searchbox{min-width:100%}.banner{padding:34px 24px;min-height:430px;align-items:flex-start}.banner::after{width:320px;height:320px;left:-120px;top:auto;bottom:-90px}.features{grid-template-columns:1fr 1fr}.feature{padding:18px}.newsletter{padding:28px 20px}.subscribe{display:grid;border-radius:18px;padding:8px}.subscribe input{padding:10px}.subscribe button{border-radius:12px}.footer-grid{grid-template-columns:1fr 1fr}.footer-brand{grid-column:1/3}.footer-grid .footer-col:last-child{grid-column:auto}.modal-grid{grid-template-columns:1fr}.modal-art{height:150px}.modal-actions{flex-direction:column}.cart-drawer{width:100%}
+    }
+    @media(max-width:430px){.categories,.products-grid{grid-template-columns:1fr}.product-media{height:250px}.features{grid-template-columns:1fr}.footer-grid{grid-template-columns:1fr}.footer-brand{grid-column:auto}.hero h1{font-size:3rem}.visual-row{grid-template-columns:1fr 1fr}.bag{transform:scale(.8)}.lipstick{transform:rotate(9deg) scale(.82)}}
+  </style>
+</head>
+<body>
+  <div class="topbar">شحن مجاني للطلبات فوق 100,000 د.ع <span>•</span> خصم 15% لأول طلب باستخدام LUMERA15</div>
+
+  <header class="nav-wrap">
+    <div class="container nav">
+      <a class="brand" href="#home">LUMÉRA<small>BEAUTY • FASHION • LIFE</small></a>
+      <nav class="nav-links">
+        <a href="#home">الرئيسية</a><a href="#categories">الأقسام</a><a href="#products">الأكثر طلباً</a><a href="#new">وصل حديثاً</a><a href="#reviews">آراء العملاء</a>
+      </nav>
+      <div class="nav-actions">
+        <button class="icon-btn" id="focusSearch" aria-label="بحث">⌕</button>
+        <button class="icon-btn" aria-label="المفضلة">♡</button>
+        <button class="icon-btn" id="cartBtn" aria-label="السلة">👜<span class="cart-count" id="cartCount">0</span></button>
+        <button class="icon-btn menu-btn" id="menuBtn" aria-label="القائمة">☰</button>
+      </div>
+    </div>
+  </header>
+
+  <div class="mobile-panel" id="mobilePanel">
+    <a href="#home">الرئيسية</a><a href="#categories">الأقسام</a><a href="#products">الأكثر طلباً</a><a href="#new">وصل حديثاً</a><a href="#reviews">آراء العملاء</a>
+  </div>
+
+  <main id="home">
+    <section class="hero">
+      <div class="container hero-grid">
+        <div class="hero-copy">
+          <span class="eyebrow">مجموعة الموسم الجديد 2026</span>
+          <h1>جمالك، <em>أناقتك</em><br>وقصتك.</h1>
+          <p>وجهتك الراقية للجمال والموضة. اختيارات منتقاة من الكوزمتك، العناية، العطور، الملابس والإكسسوارات — بتجربة تسوّق عصرية مصممة لتشبهك.</p>
+          <div class="hero-cta">
+            <a class="btn btn-primary" href="#products">تسوّقي المجموعة <span>←</span></a>
+            <a class="btn btn-ghost" href="#categories">استكشفي الأقسام</a>
+          </div>
+          <div class="hero-stats">
+            <div class="stat"><strong>250+</strong><span>منتج مختار</span></div>
+            <div class="stat"><strong>4.9/5</strong><span>رضا العملاء</span></div>
+            <div class="stat"><strong>24h</strong><span>تجهيز سريع</span></div>
+          </div>
+        </div>
+
+        <div class="hero-visual">
+          <div class="visual-main">
+            <div class="orb one"></div><div class="orb two"></div><div class="bottle"></div>
+            <div class="visual-badge">NEW DROP ✦</div>
+            <div class="caption"><strong>Velvet Aura</strong><span>عطر دافئ بلمسة ورد، عنبر وفانيلا.</span></div>
+          </div>
+          <div class="visual-row">
+            <div class="visual-small"><div class="mini-product"><div class="lipstick"></div></div></div>
+            <div class="visual-small"><div class="mini-product"><div class="bag"></div></div></div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <div class="marquee">
+      <div class="marquee-track">
+        <span><b>✦</b> BEAUTY CURATED FOR YOU</span><span><b>✦</b> NEW FASHION WEEKLY</span><span><b>✦</b> PREMIUM PACKAGING</span><span><b>✦</b> FAST DELIVERY</span><span><b>✦</b> BEAUTY CURATED FOR YOU</span><span><b>✦</b> NEW FASHION WEEKLY</span><span><b>✦</b> PREMIUM PACKAGING</span><span><b>✦</b> FAST DELIVERY</span>
+      </div>
+    </div>
+
+    <section class="section" id="categories">
+      <div class="container">
+        <div class="section-title">
+          <div><span class="eyebrow">Shop by category</span><h2>كل شيء بمكان واحد.</h2></div>
+          <p>من اللوك اليومي إلى مناسبتك الخاصة — اختاري القسم اللي يناسبك وخلي الباقي علينا.</p>
+        </div>
+        <div class="categories">
+          <a class="category-card" href="#products" data-go="makeup"><div class="cat-inner"><div><h3>كوزمتك</h3><span>مكياج • شفاه • عيون</span></div><span class="cat-arrow">←</span></div></a>
+          <a class="category-card" href="#products" data-go="skincare"><div class="cat-inner"><div><h3>عناية وعطور</h3><span>بشرة • سيروم • عطور</span></div><span class="cat-arrow">←</span></div></a>
+          <a class="category-card" href="#products" data-go="fashion"><div class="cat-inner"><div><h3>ملابس</h3><span>ستايل يومي • مناسبات</span></div><span class="cat-arrow">←</span></div></a>
+          <a class="category-card" href="#products" data-go="accessories"><div class="cat-inner"><div><h3>إكسسوارات</h3><span>شنط • أحذية • تفاصيل</span></div><span class="cat-arrow">←</span></div></a>
+        </div>
+      </div>
+    </section>
+
+    <section class="section" id="products" style="padding-top:30px">
+      <div class="container">
+        <div class="section-title">
+          <div><span class="eyebrow">Best sellers</span><h2>الأكثر طلباً.</h2></div>
+          <p>مجموعة مختارة من القطع والمنتجات الأكثر حباً — جودة، تفاصيل وأناقة بدون تنازلات.</p>
+        </div>
+        <div class="products-toolbar">
+          <div class="filters">
+            <button class="filter-btn active" data-filter="all">الكل</button>
+            <button class="filter-btn" data-filter="makeup">كوزمتك</button>
+            <button class="filter-btn" data-filter="skincare">عناية</button>
+            <button class="filter-btn" data-filter="fashion">ملابس</button>
+            <button class="filter-btn" data-filter="accessories">إكسسوارات</button>
+          </div>
+          <label class="searchbox">⌕ <input id="searchInput" placeholder="ابحثي عن منتج..." /></label>
+        </div>
+
+        <div class="products-grid" id="productsGrid">
+          <article class="product-card" data-cat="skincare" data-name="Velvet Aura Perfume عطر فلفت أورا">
+            <div class="product-media m1"><span class="product-badge">-20%</span><button class="wish">♡</button><div class="shape perfume"></div></div>
+            <div class="product-info"><div class="product-topline"><div><h3>Velvet Aura Perfume</h3><div class="cat">عطور • 75ml</div></div><span class="rating">★ 4.9</span></div><div class="price"><strong>68,000 د.ع</strong><s>85,000</s></div><button class="add-btn" data-product="Velvet Aura Perfume" data-price="68000">أضيفي للسلة</button></div>
+          </article>
+          <article class="product-card" data-cat="makeup" data-name="Satin Lip No.04 روج ساتن">
+            <div class="product-media m2"><span class="product-badge">HOT</span><button class="wish">♡</button><div class="shape lip"></div></div>
+            <div class="product-info"><div class="product-topline"><div><h3>Satin Lip No.04</h3><div class="cat">شفاه • Rose Nude</div></div><span class="rating">★ 4.8</span></div><div class="price"><strong>22,000 د.ع</strong></div><button class="add-btn" data-product="Satin Lip No.04" data-price="22000">أضيفي للسلة</button></div>
+          </article>
+          <article class="product-card" data-cat="skincare" data-name="Cloud Barrier Cream كريم العناية">
+            <div class="product-media m3"><button class="wish">♡</button><div class="shape jar"></div></div>
+            <div class="product-info"><div class="product-topline"><div><h3>Cloud Barrier Cream</h3><div class="cat">عناية البشرة • 50ml</div></div><span class="rating">★ 4.7</span></div><div class="price"><strong>34,000 د.ع</strong></div><button class="add-btn" data-product="Cloud Barrier Cream" data-price="34000">أضيفي للسلة</button></div>
+          </article>
+          <article class="product-card" data-cat="accessories" data-name="Mira Mini Bag شنطة ميرا">
+            <div class="product-media m4"><span class="product-badge">NEW</span><button class="wish">♡</button><div class="shape bagshape"></div></div>
+            <div class="product-info"><div class="product-topline"><div><h3>Mira Mini Bag</h3><div class="cat">شنط • Caramel</div></div><span class="rating">★ 4.9</span></div><div class="price"><strong>76,000 د.ع</strong></div><button class="add-btn" data-product="Mira Mini Bag" data-price="76000">أضيفي للسلة</button></div>
+          </article>
+          <article class="product-card" data-cat="fashion" data-name="Noir Line Dress فستان نوار">
+            <div class="product-media m5"><span class="product-badge">LIMITED</span><button class="wish">♡</button><div class="shape dress"></div></div>
+            <div class="product-info"><div class="product-topline"><div><h3>Noir Line Dress</h3><div class="cat">ملابس • Black Edit</div></div><span class="rating">★ 4.8</span></div><div class="price"><strong>94,000 د.ع</strong></div><button class="add-btn" data-product="Noir Line Dress" data-price="94000">أضيفي للسلة</button></div>
+          </article>
+          <article class="product-card" data-cat="makeup" data-name="Glow Edit Palette باليت جلو">
+            <div class="product-media m6"><button class="wish">♡</button><div class="shape palette"></div></div>
+            <div class="product-info"><div class="product-topline"><div><h3>Glow Edit Palette</h3><div class="cat">وجه وعيون • 9 Shades</div></div><span class="rating">★ 4.6</span></div><div class="price"><strong>39,000 د.ع</strong></div><button class="add-btn" data-product="Glow Edit Palette" data-price="39000">أضيفي للسلة</button></div>
+          </article>
+          <article class="product-card" data-cat="accessories" data-name="Cloud Step Mule حذاء كلاود">
+            <div class="product-media m7"><span class="product-badge">-15%</span><button class="wish">♡</button><div class="shape shoe"></div></div>
+            <div class="product-info"><div class="product-topline"><div><h3>Cloud Step Mule</h3><div class="cat">أحذية • Ivory</div></div><span class="rating">★ 4.7</span></div><div class="price"><strong>59,500 د.ع</strong><s>70,000</s></div><button class="add-btn" data-product="Cloud Step Mule" data-price="59500">أضيفي للسلة</button></div>
+          </article>
+          <article class="product-card" data-cat="skincare" data-name="Golden Drop Serum سيروم قولدن دروب">
+            <div class="product-media m8"><span class="product-badge">NEW</span><button class="wish">♡</button><div class="shape serum"></div></div>
+            <div class="product-info"><div class="product-topline"><div><h3>Golden Drop Serum</h3><div class="cat">عناية البشرة • 30ml</div></div><span class="rating">★ 4.9</span></div><div class="price"><strong>41,000 د.ع</strong></div><button class="add-btn" data-product="Golden Drop Serum" data-price="41000">أضيفي للسلة</button></div>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <section class="section" id="new">
+      <div class="container">
+        <div class="banner">
+          <div class="banner-copy">
+            <span class="eyebrow" style="color:#4f3432">LUMÉRA EDIT / 02</span>
+            <h2>Soft Glam.<br>Strong Presence.</h2>
+            <p>لوك كامل يجمع الهدوء والفخامة: درجات ناعمة، تفاصيل ذهبية، وقصّات تعطي حضور من أول نظرة.</p>
+            <button class="btn" onclick="showToast('تم فتح مجموعة الموسم كتجربة ✦')">اكتشفي الـ Edit <span>←</span></button>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="section" style="padding-top:15px">
+      <div class="container">
+        <div class="features">
+          <div class="feature"><div class="feature-icon">✦</div><h3>اختيارات منتقاة</h3><p>منتجات مختارة بعناية لتجمع الجودة، الأناقة والتجربة المميزة.</p></div>
+          <div class="feature"><div class="feature-icon">↯</div><h3>تجهيز سريع</h3><p>نجهّز طلبك بسرعة وتغليف مرتب ليكون كل طلب تجربة كاملة.</p></div>
+          <div class="feature"><div class="feature-icon">♢</div><h3>تغليف فاخر</h3><p>تفاصيل أنيقة من أول لحظة — مناسبة لك أو كهدية لشخص تحبيه.</p></div>
+          <div class="feature"><div class="feature-icon">♡</div><h3>دعم حقيقي</h3><p>مساعدة قبل وبعد الطلب واختيار الأنسب لك بكل سهولة.</p></div>
+        </div>
+      </div>
+    </section>
+
+    <section class="section" id="reviews">
+      <div class="container">
+        <div class="section-title"><div><span class="eyebrow">Real love</span><h2>قالوا عن LUMÉRA.</h2></div><p>تجربة مصممة حتى تكون التفاصيل الصغيرة هي اللي تخليك ترجعين مرة ثانية.</p></div>
+        <div class="testimonials">
+          <div class="testimonial"><div class="stars">★★★★★</div><p>“التصميم والتغليف يخبل، والمنتجات شكلها حتى أحلى من الصور. كلشي مرتب من أول الطلب لحد الاستلام.”</p><div class="customer"><div class="avatar">س</div><div><strong>سارة علي</strong><small>عميلة موثقة</small></div></div></div>
+          <div class="testimonial"><div class="stars">★★★★★</div><p>“أكثر شي عجبني أن المتجر مو بس كوزمتك، قدرت أطلب شنطة ويا العطر بنفس الطلب. الفكرة كلش عملية وراقية.”</p><div class="customer"><div class="avatar">ن</div><div><strong>نور حسين</strong><small>عميلة موثقة</small></div></div></div>
+          <div class="testimonial"><div class="stars">★★★★★</div><p>“ألوان الروج والعطر صاروا من المفضلات عندي. تجربة المتجر نفسها تحسها براند حقيقي مو مجرد صفحة بيع.”</p><div class="customer"><div class="avatar">ر</div><div><strong>رُبى أحمد</strong><small>عميلة موثقة</small></div></div></div>
+        </div>
+
+        <div class="newsletter">
+          <div><h3>خليكِ أول وحدة تعرف.</h3><p>وصلات جديدة، خصومات خاصة، وأفكار ستايل وجمال توصل مباشرة لإيميلك.</p></div>
+          <form class="subscribe" id="subscribeForm"><input type="email" required placeholder="example@email.com"><button>اشتراك</button></form>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <footer>
+    <div class="container">
+      <div class="footer-grid">
+        <div class="footer-brand"><div class="brand">LUMÉRA<small>BEAUTY • FASHION • LIFE</small></div><p>متجر عصري يجمع الجمال، الموضة والتفاصيل اليومية ضمن تجربة واحدة أنيقة وسهلة.</p><div class="socials"><a href="#">◎</a><a href="#">◉</a><a href="#">♬</a><a href="#">✦</a></div></div>
+        <div class="footer-col"><h4>تسوّقي</h4><a href="#products">كوزمتك</a><a href="#products">العناية</a><a href="#products">الملابس</a><a href="#products">الإكسسوارات</a></div>
+        <div class="footer-col"><h4>المساعدة</h4><a href="#">الأسئلة الشائعة</a><a href="#">الشحن والتوصيل</a><a href="#">الاستبدال والاسترجاع</a><a href="#">تتبّع الطلب</a></div>
+        <div class="footer-col"><h4>عن LUMÉRA</h4><a href="#">قصتنا</a><a href="#">تواصل معنا</a><a href="#">سياسة الخصوصية</a><a href="#">الشروط والأحكام</a></div>
+      </div>
+      <div class="footer-bottom"><span>© 2026 LUMÉRA. جميع الحقوق محفوظة.</span><span>واجهة تجريبية • HTML / CSS / JS</span></div>
+    </div>
+  </footer>
+
+  <div class="drawer-overlay" id="overlay"></div>
+  <aside class="cart-drawer" id="cartDrawer">
+    <div class="drawer-head"><h3>سلة التسوّق <span id="drawerCount">(0)</span></h3><button class="close-btn" id="closeCart">✕</button></div>
+    <div class="cart-items" id="cartItems"><div class="empty-cart"><div><span class="emoji">👜</span><strong>السلة فارغة</strong><p>ضيفي منتجات تحبيها وراح تظهر هنا.</p></div></div></div>
+    <div class="drawer-foot"><div class="total"><span>المجموع</span><span id="cartTotal">0 د.ع</span></div><button class="checkout" onclick="showToast('واجهة الدفع تجريبية حالياً ✦')">إكمال الطلب</button></div>
+  </aside>
+
+  <div class="modal" id="productModal">
+    <div class="modal-card">
+      <button class="close-btn" id="closeModal" style="float:left">✕</button>
+      <div class="modal-grid">
+        <div class="modal-art">✦</div>
+        <div><span class="eyebrow" style="color:#81683c">Quick view</span><h3 id="modalName">Product</h3><p>معاينة سريعة للمنتج. في النسخة الحقيقية هنا ممكن نضيف الصور، الألوان، المقاسات، الوصف، المخزون والتقييمات.</p><div class="price"><strong id="modalPrice">0 د.ع</strong></div><div class="modal-actions"><button class="btn btn-primary" id="modalAdd">أضيفي للسلة</button><button class="btn btn-ghost" onclick="showToast('تمت الإضافة للمفضلة ♡')">♡ المفضلة</button></div></div>
+      </div>
+    </div>
+  </div>
+
+  <div class="toast" id="toast">تمت الإضافة</div>
+
+  <script>
+    const $ = s => document.querySelector(s);
+    const $$ = s => [...document.querySelectorAll(s)];
+    const cart = [];
+    const overlay = $('#overlay'), drawer = $('#cartDrawer'), cartItems = $('#cartItems');
+
+    function openCart(){ drawer.classList.add('show'); overlay.classList.add('show'); document.body.style.overflow='hidden'; }
+    function closeCart(){ drawer.classList.remove('show'); overlay.classList.remove('show'); document.body.style.overflow=''; }
+    $('#cartBtn').onclick = openCart; $('#closeCart').onclick = closeCart; overlay.onclick = ()=>{closeCart(); closeModal();};
+
+    function money(n){ return n.toLocaleString('en-US') + ' د.ع'; }
+    function renderCart(){
+      $('#cartCount').textContent = cart.length; $('#drawerCount').textContent = `(${cart.length})`;
+      $('#cartTotal').textContent = money(cart.reduce((s,x)=>s+x.price,0));
+      if(!cart.length){ cartItems.innerHTML = '<div class="empty-cart"><div><span class="emoji">👜</span><strong>السلة فارغة</strong><p>ضيفي منتجات تحبيها وراح تظهر هنا.</p></div></div>'; return; }
+      cartItems.innerHTML = cart.map((x,i)=>`<div class="cart-item"><div class="cart-thumb">L</div><div class="cart-meta"><strong>${x.name}</strong><span>${money(x.price)}</span></div><button class="remove" data-i="${i}">✕</button></div>`).join('');
+      $$('.remove').forEach(b=>b.onclick=()=>{cart.splice(+b.dataset.i,1);renderCart();showToast('تم حذف المنتج من السلة');});
+    }
+    function addToCart(name,price){ cart.push({name,price:+price}); renderCart(); showToast('تمت الإضافة للسلة ✦'); }
+    $$('.add-btn').forEach(btn=>btn.onclick=e=>{e.stopPropagation();addToCart(btn.dataset.product,btn.dataset.price)});
+
+    function showToast(msg){ const t=$('#toast'); t.textContent=msg; t.classList.add('show'); clearTimeout(window._toast); window._toast=setTimeout(()=>t.classList.remove('show'),2200); }
+    window.showToast=showToast;
+
+    $$('.wish').forEach(w=>w.onclick=e=>{e.stopPropagation();w.classList.toggle('active');w.textContent=w.classList.contains('active')?'♥':'♡';showToast(w.classList.contains('active')?'تمت الإضافة للمفضلة ♡':'تمت الإزالة من المفضلة');});
+
+    let activeFilter='all';
+    function filterProducts(){
+      const q=$('#searchInput').value.trim().toLowerCase();
+      $$('.product-card').forEach(card=>{
+        const catOk=activeFilter==='all'||card.dataset.cat===activeFilter;
+        const qOk=card.dataset.name.toLowerCase().includes(q);
+        card.style.display=catOk&&qOk?'block':'none';
+      });
+    }
+    $$('.filter-btn').forEach(btn=>btn.onclick=()=>{ $$('.filter-btn').forEach(x=>x.classList.remove('active'));btn.classList.add('active');activeFilter=btn.dataset.filter;filterProducts();});
+    $('#searchInput').oninput=filterProducts;
+    $('#focusSearch').onclick=()=>{document.querySelector('#products').scrollIntoView({behavior:'smooth'});setTimeout(()=>$('#searchInput').focus(),450)};
+    $$('[data-go]').forEach(a=>a.onclick=()=>{activeFilter=a.dataset.go;$$('.filter-btn').forEach(b=>b.classList.toggle('active',b.dataset.filter===activeFilter));setTimeout(filterProducts,400)});
+
+    const modal=$('#productModal'); let modalProduct={};
+    function openModal(card){
+      const btn=card.querySelector('.add-btn'); modalProduct={name:btn.dataset.product,price:+btn.dataset.price};
+      $('#modalName').textContent=modalProduct.name; $('#modalPrice').textContent=money(modalProduct.price); modal.classList.add('show'); overlay.classList.add('show'); document.body.style.overflow='hidden';
+    }
+    function closeModal(){ modal.classList.remove('show'); if(!drawer.classList.contains('show')) overlay.classList.remove('show'); document.body.style.overflow=''; }
+    $$('.product-card').forEach(card=>card.onclick=()=>openModal(card)); $('#closeModal').onclick=closeModal; $('#modalAdd').onclick=()=>{addToCart(modalProduct.name,modalProduct.price);closeModal();openCart();};
+
+    $('#subscribeForm').onsubmit=e=>{e.preventDefault();showToast('تم الاشتراك بنجاح ✦');e.target.reset();};
+    $('#menuBtn').onclick=()=>$('#mobilePanel').classList.toggle('show');
+    $$('#mobilePanel a').forEach(a=>a.onclick=()=>$('#mobilePanel').classList.remove('show'));
+
+    document.addEventListener('keydown',e=>{if(e.key==='Escape'){closeCart();closeModal();$('#mobilePanel').classList.remove('show')}});
+  </script>
+</body>
+</html>
